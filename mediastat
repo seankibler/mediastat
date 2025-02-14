@@ -1,0 +1,70 @@
+#!/usr/bin/env ruby
+
+require 'uri'
+require 'httparty'
+require 'json'
+require 'streamio-ffmpeg'
+require 'tempfile'
+
+VIDEO_TYPE = 'video'.freeze
+AUDIO_TYPE = 'audio'.freeze
+
+class MediaStatError < StandardError
+end
+
+def handle_file(path)
+  get_info(path)
+end
+
+def handle_http(uri)
+  begin
+    tmp = Tempfile.new(File.basename(uri.to_s))
+    response = HTTParty.get(uri)
+
+    if response.code >= 300
+      raise MediaStatError.new("Failed to retrieve URL with code #{response.code}")
+    end
+
+    tmp.write(response.body)
+
+    get_info(tmp.path)
+  ensure
+    tmp.unlink
+  end
+end
+
+def get_info(path)
+  info = FFMPEG::Movie.new(path)
+
+  is_video = !info.video_stream.nil?
+  is_audio = info.audio_streams&.any?
+
+  if !is_video && !is_audio
+    raise MediaStatError.new('No audio or video detected')
+  end
+
+  data = {
+    duration: info.duration,
+    type: is_video ? VIDEO_TYPE : AUDIO_TYPE,
+  }
+
+  data[:fps] = info.frame_rate.to_i if is_video
+
+  puts JSON.dump(data)
+end
+
+def main
+  uri = URI(ARGV[0])
+
+  if uri.scheme =~ /https?/
+    handle_http(uri)
+  elsif uri.scheme == 'file'
+    handle_file(uri.host + uri.path)
+  elsif File.exist?(uri.to_s)
+    handle_file(uri.to_s)
+  else
+    raise MediaStatError.new("That type of resource is not handled.")
+  end
+end
+
+main
