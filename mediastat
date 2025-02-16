@@ -22,7 +22,7 @@ def get_info(path)
   end
 
   data = {
-    duration: info.duration,
+    duration: info.duration.round,
     type: is_video ? VIDEO_TYPE : AUDIO_TYPE,
   }
 

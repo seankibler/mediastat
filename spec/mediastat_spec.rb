@@ -7,7 +7,7 @@ RSpec.describe 'mediastat' do
     response_json = JSON.parse(response)
 
     expect($?).to eq(0)
-    expect(response_json.fetch("duration")).to eq(596.458333)
+    expect(response_json.fetch("duration")).to eq(596)
     expect(response_json.fetch("type")).to eq('video')
     expect(response_json.fetch("fps")).to eq(24)
   end
@@ -17,7 +17,7 @@ RSpec.describe 'mediastat' do
     response_json = JSON.parse(response)
 
     expect($?).to eq(0)
-    expect(response_json.fetch("duration")).to eq(596.458333)
+    expect(response_json.fetch("duration")).to eq(596)
     expect(response_json.fetch("type")).to eq('video')
     expect(response_json.fetch("fps")).to eq(24)
   end
@@ -27,7 +27,7 @@ RSpec.describe 'mediastat' do
     response_json = JSON.parse(response)
 
     expect($?).to eq(0)
-    expect(response_json.fetch("duration")).to eq(273.449796)
+    expect(response_json.fetch("duration")).to eq(273)
     expect(response_json.fetch("type")).to eq('audio')
   end
 
@@ -36,7 +36,7 @@ RSpec.describe 'mediastat' do
     response_json = JSON.parse(response)
 
     expect($?).to eq(0)
-    expect(response_json.fetch("duration")).to eq(273.449796)
+    expect(response_json.fetch("duration")).to eq(273)
     expect(response_json.fetch("type")).to eq('audio')
   end
 
@@ -44,7 +44,7 @@ RSpec.describe 'mediastat' do
     response = %x(mediastat #{ROOT}/examples/back-to-the-electric-church.mp3)
     response_json = JSON.parse(response)
 
-    expect(response_json.fetch("duration")).to eq(273.449796)
+    expect(response_json.fetch("duration")).to eq(273)
     expect(response_json.fetch("type")).to eq('audio')
   end
 
@@ -53,7 +53,7 @@ RSpec.describe 'mediastat' do
     response_json = JSON.parse(response)
 
     expect($?).to eq(0)
-    expect(response_json.fetch("duration")).to eq(273.449796)
+    expect(response_json.fetch("duration")).to eq(273)
     expect(response_json.fetch("type")).to eq('audio')
   end
 
