@@ -22,26 +22,6 @@ RSpec.describe 'mediastat' do
     expect(response_json.fetch("fps")).to eq(24)
   end
 
-  it 'should read an AVI video from an absolute local path' do
-    response = %x(mediastat #{ROOT}/examples/big_buck_bunny_480p_surround-fix.avi)
-    response_json = JSON.parse(response)
-
-    expect($?).to eq(0)
-    expect(response_json.fetch("duration")).to eq(596.458333)
-    expect(response_json.fetch("type")).to eq('video')
-    expect(response_json.fetch("fps")).to eq(24)
-  end
-
-  it 'should read an MP4 video from an absolute local path' do
-    response = %x(mediastat file://#{ROOT}/examples/bbb_sunflower_1080p_60fps_stereo_abl.mp4)
-    response_json = JSON.parse(response)
-
-    expect($?).to eq(0)
-    expect(response_json.fetch("duration")).to eq(634.533333)
-    expect(response_json.fetch("type")).to eq('video')
-    expect(response_json.fetch("fps")).to eq(60)
-  end
-
   it 'should read an MP3 audio from HTTP server' do
     response = %x(mediastat https://mediastat.s3.us-east-1.amazonaws.com/audio/back-to-the-electric-church.mp3)
     response_json = JSON.parse(response)

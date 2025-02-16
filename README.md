@@ -39,13 +39,21 @@ File absolute
 
 ## Run Tests
 
-    docker build -t mediastat:latest .
+Run a local nginx serving up static files in examples. This allows for
+testing against a really basic Nginx server.
+
     docker run --rm -v $(pwd)/examples:/usr/share/nginx/html:ro -p 8000:80 nginx
+
+
+The stderr redirection to /dev/null just keeps the test output clean. It
+can be removed to see the stderr output when invalid arguments are
+passed ex: invalid URL, 404 etc.
 
 Natively
 
-    bundle exec rspec spec/
+    bundle exec rspec spec/ 2>/dev/null
 
 Docker
 
-    docker run -v $(pwd):/app mediastat:latest rspec spec/
+    docker build -t mediastat:latest .
+    docker run -v $(pwd):/app --entrypoint rspec mediastat:latest spec 2>/dev/null
