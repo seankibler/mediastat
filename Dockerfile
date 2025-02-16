@@ -8,12 +8,10 @@ RUN mkdir -p /app
 
 WORKDIR /app
 
-EXPOSE 3000
-
 COPY Gemfile Gemfile.lock .
 
 RUN bundle install
 
 COPY mediastat /usr/local/bin/
 
-CMD ["mediastat"]
+ENTRYPOINT ["mediastat"]

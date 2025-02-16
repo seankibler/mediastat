@@ -1,36 +1,14 @@
 #!/usr/bin/env ruby
 
 require 'uri'
-require 'httparty'
 require 'json'
+require 'httparty'
 require 'streamio-ffmpeg'
-require 'tempfile'
 
 VIDEO_TYPE = 'video'.freeze
 AUDIO_TYPE = 'audio'.freeze
 
 class MediaStatError < StandardError
-end
-
-def handle_file(path)
-  get_info(path)
-end
-
-def handle_http(uri)
-  begin
-    tmp = Tempfile.new(File.basename(uri.to_s))
-    response = HTTParty.get(uri)
-
-    if response.code >= 300
-      raise MediaStatError.new("Failed to retrieve URL with code #{response.code}")
-    end
-
-    tmp.write(response.body)
-
-    get_info(tmp.path)
-  ensure
-    tmp.unlink
-  end
 end
 
 def get_info(path)
@@ -54,16 +32,19 @@ def get_info(path)
 end
 
 def main
-  uri = URI(ARGV[0])
+  uri = URI(ARGV[0].strip)
 
-  if uri.scheme =~ /https?/
-    handle_http(uri)
-  elsif uri.scheme == 'file'
-    handle_file(uri.host + uri.path)
-  elsif File.exist?(uri.to_s)
-    handle_file(uri.to_s)
+  case uri.scheme
+  when /https?/
+    get_info(uri.to_s)
+  when 'file'
+    get_info(uri.host + uri.path)
   else
-    raise MediaStatError.new("That type of resource is not handled.")
+    if File.exist?(uri.to_s)
+      get_info(uri.to_s)
+    else
+      raise MediaStatError.new("That type of resource is not handled.")
+    end
   end
 end
 
