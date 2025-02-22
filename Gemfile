@@ -2,7 +2,12 @@
 
 source "https://rubygems.org"
 
-gem 'streamio-ffmpeg', '~> 3.0.2'
+# Fork of original that includes a modification to bypass
+# HEAD request check on AWS S3 Presigned URLs.
+gem 'streamio-ffmpeg',
+  git: 'https://github.com/seankibler/streamio-ffmpeg.git',
+  tag: 'v3.0.3'
+
 gem 'httparty', '~> 0.22.0'
 
 group :development, :test do

@@ -14,4 +14,4 @@ RUN bundle install
 
 COPY mediastat /usr/local/bin/
 
-ENTRYPOINT ["mediastat"]
+ENTRYPOINT ["bundle", "exec", "mediastat"]

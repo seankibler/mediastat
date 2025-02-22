@@ -1,8 +1,17 @@
+GIT
+  remote: https://github.com/seankibler/streamio-ffmpeg.git
+  revision: 2eeb7ac9a755b335f51e67a89918dbda71833b2b
+  tag: v3.0.3
+  specs:
+    streamio-ffmpeg (3.0.2)
+      multi_json (~> 1.8)
+
 GEM
   remote: https://rubygems.org/
   specs:
     bigdecimal (3.1.9)
     csv (3.3.2)
+    diff-lcs (1.6.0)
     httparty (0.22.0)
       csv
       mini_mime (>= 1.0.0)
@@ -11,8 +20,19 @@ GEM
     multi_json (1.15.0)
     multi_xml (0.7.1)
       bigdecimal (~> 3.1)
-    streamio-ffmpeg (3.0.2)
-      multi_json (~> 1.8)
+    rspec (3.13.0)
+      rspec-core (~> 3.13.0)
+      rspec-expectations (~> 3.13.0)
+      rspec-mocks (~> 3.13.0)
+    rspec-core (3.13.3)
+      rspec-support (~> 3.13.0)
+    rspec-expectations (3.13.3)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-mocks (3.13.2)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.13.0)
+    rspec-support (3.13.2)
 
 PLATFORMS
   ruby
@@ -20,7 +40,8 @@ PLATFORMS
 
 DEPENDENCIES
   httparty (~> 0.22.0)
-  streamio-ffmpeg (~> 3.0.2)
+  rspec (~> 3.13.0)
+  streamio-ffmpeg!
 
 BUNDLED WITH
    2.6.2
