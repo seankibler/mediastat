@@ -23,19 +23,19 @@ Debian/Ubuntu
 
 HTTP(S) link
 
-    ./mediastat https://mediastat.s3.us-east-1.amazonaws.com/audio/back-to-the-electric-church.mp3
+    bundle exec mediastat https://mediastat.s3.us-east-1.amazonaws.com/audio/back-to-the-electric-church.mp3
 
 File URI
 
-    ./mediastat file:///home/bigbuckbunny/video.mp4
+    bundle exec mediastat file:///home/bigbuckbunny/video.mp4
 
 File relative
 
-    ./mediastat ./examples/back-to-the-electric-church.mp3
+    bundle exec mediastat ./examples/back-to-the-electric-church.mp3
 
 File absolute
 
-    ./mediastat /home/bigbuckbunny/video.mp4
+    bundle exec mediastat /home/bigbuckbunny/video.mp4
 
 ## Run Tests
 
